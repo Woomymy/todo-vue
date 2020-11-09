@@ -1,6 +1,7 @@
 <template>
   <Error msg="L'entrée est vide!" v-if="emptyval"/>
   <Error msg="Cet élément existe déjà!" v-if="showalreadyex"/>
+  <Success msg="Elément ajouté!" v-if="successhow"/>
   <h1 class="center">TodoList</h1>
   <ul>
     <li v-for="todo in todos" v-bind:key="todo.id" >{{ todo.id }}: {{ todo.value }}</li>
@@ -11,16 +12,19 @@
 
 <script>
 import Error from "./components/Error"
+import Success from "./components/Succes"
 export default {
   name: "App",
   components: {
-    Error
+    Error,
+    Success
   },
   data() {
     return {
       todos: [],
       emptyval: false,
-      showalreadyex: false
+      showalreadyex: false,
+      successshow: false
     }
   },
   methods: {
@@ -31,20 +35,24 @@ export default {
         this.emptyval = true
         setTimeout(() => {
           this.emptyval = false
-        }, 5000)
+        }, 3000)
         return;
       }
       if(this.hasTodo(val)) {
         this.showalreadyex = true;
         setTimeout(() => {
           this.showalreadyex = false;
-        }, 5000)
+        }, 3000)
         return;
       }
       this.todos.push({
         value: val,
         id: this.todos.length + 1
       });
+      this.successshow = true
+      setTimeout(() => {
+        this.successshow = false
+      }, 3000)
       document.getElementById('adder').value = ""; // Reset field value
       this.resetProps()
     },
