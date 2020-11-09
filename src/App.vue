@@ -1,8 +1,9 @@
 <template>
-  <Error msg="Value is empty" v-if="emptyval"/>
+  <Error msg="L'entrée est vide!" v-if="emptyval"/>
+  <Error msg="Cet élément existe déjà!" v-if="showalreadyex"/>
   <h1 class="center">TodoList</h1>
   <ul>
-    <li v-for="todo in todos" :key="todo.id" >{{ todo.id }}: {{ todo.value }}</li>
+    <li v-for="todo in todos" v-bind:key="todo.id" >{{ todo.id }}: {{ todo.value }}</li>
   </ul>
   <input id="adder">
   <button id="validate" @click="addTodo()">Valider</button>
@@ -18,7 +19,8 @@ export default {
   data() {
     return {
       todos: [],
-      emptyval: false
+      emptyval: false,
+      showalreadyex: false
     }
   },
   methods: {
@@ -30,10 +32,25 @@ export default {
         setTimeout(() => {
           this.emptyval = false
         }, 5000)
+        return;
+      }
+      if(this.hasTodo(val)) {
+        this.showalreadyex = true;
+        setTimeout(() => {
+          this.showalreadyex = false;
+        }, 5000)
+        return;
       }
     },
-    hasTodo() {
-
+    hasTodo(val) {
+      let has;
+      this.todos.forEach(todo => {
+        if(todo.value === val) {
+          has = true;
+          return;
+        }
+      });
+      return has;
     }
   }
 };
