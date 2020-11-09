@@ -4,7 +4,7 @@
   <Success msg="Elément ajouté!" v-if="successshow"/>
   <h1 class="center">TodoList</h1>
   <ul>
-  <TodoItem v-for="todo in todos" v-bind:todo="todo" v-bind:id="todo.id" v-bind:key="todo.id" > </TodoItem>
+  <TodoItem @todoup="syncTodos" v-bind:todos="todos" v-for="todo in todos" v-bind:todo="todo" v-bind:id="todo.id" v-bind:key="todo.id" > </TodoItem>
   </ul>
   <input id="adder" @keyup.enter="addTodo()">
   <button class="bigbutton" id="validate" @click="addTodo()">Valider</button>
@@ -71,6 +71,9 @@ export default {
     resetProps() {
       this.showalreadyex = false
       this.emptyval = false
+    },
+    syncTodos(n) {
+      this.todos = n;
     }
   }
 };
