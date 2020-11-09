@@ -9,7 +9,6 @@
   <input id="adder">
   <button class="bigbutton" id="validate" @click="addTodo()">Valider</button>
 </template>
-
 <script>
 import Error from "./components/Error"
 import Success from "./components/Succes"
