@@ -4,20 +4,22 @@
   <Success msg="Elément ajouté!" v-if="successshow"/>
   <h1 class="center">TodoList</h1>
   <ul>
-    <li v-for="todo in todos" v-bind:key="todo.id" >{{ todo.id }}: {{ todo.value }}</li>
+  <TodoItem  v-for="todo in todos" v-bind:todo="todo" v-bind:key="todo.id" > </TodoItem>
   </ul>
   <input id="adder">
-  <button id="validate" @click="addTodo()">Valider</button>
+  <button class="bigbutton" id="validate" @click="addTodo()">Valider</button>
 </template>
 
 <script>
 import Error from "./components/Error"
 import Success from "./components/Succes"
+import TodoItem from "./components/TodoItem"
 export default {
   name: "App",
   components: {
     Error,
-    Success
+    Success,
+    TodoItem
   },
   data() {
     return {
@@ -72,6 +74,7 @@ export default {
     }
   }
 };
+
 </script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
@@ -88,12 +91,22 @@ input {
   border-color:  #288fef;
   margin: 10px;
 }
-button {
+  .bigbutton {
     margin: 10px;
     background-color: #288fef;
     border: none;
     color: white;
     padding: 13px 29px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 17px;
+}
+.tinybutton{
+    margin: 10px;
+    background-color: #288fef;
+    border: none;
+    color: white;
     text-align: center;
     text-decoration: none;
     display: inline-block;
