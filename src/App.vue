@@ -6,7 +6,7 @@
   <ul>
   <TodoItem v-for="todo in todos" v-bind:todo="todo" v-bind:id="todo.id" v-bind:key="todo.id" > </TodoItem>
   </ul>
-  <input id="adder">
+  <input id="adder" @keyup.enter="addTodo()">
   <button class="bigbutton" id="validate" @click="addTodo()">Valider</button>
 </template>
 <script>
