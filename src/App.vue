@@ -41,6 +41,11 @@ export default {
         }, 5000)
         return;
       }
+      this.todos.push({
+        value: val,
+        id: this.todos.length + 1
+      });
+      this.resetProps()
     },
     hasTodo(val) {
       let has;
@@ -51,6 +56,10 @@ export default {
         }
       });
       return has;
+    },
+    resetProps() {
+      this.showalreadyex = false
+      this.emptyval = false
     }
   }
 };
