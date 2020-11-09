@@ -32,7 +32,6 @@ export default {
     addTodo() {
       const val = document.getElementById('adder').value
       if(!val) {
-        console.log("Value empty!");
         this.emptyval = true
         setTimeout(() => {
           this.emptyval = false
