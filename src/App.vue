@@ -1,7 +1,7 @@
 <template>
   <Error msg="L'entrée est vide!" v-if="emptyval"/>
   <Error msg="Cet élément existe déjà!" v-if="showalreadyex"/>
-  <Success msg="Elément ajouté!" v-if="successhow"/>
+  <Success msg="Elément ajouté!" v-if="successshow"/>
   <h1 class="center">TodoList</h1>
   <ul>
     <li v-for="todo in todos" v-bind:key="todo.id" >{{ todo.id }}: {{ todo.value }}</li>
@@ -113,5 +113,10 @@ button {
     align-self: center;
     text-align: center;
     background-color: #e45640;
+  }
+  .succes{
+     align-self: center;
+    text-align: center;
+    background-color: #0ecc5d;
   }
 </style>
