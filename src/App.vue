@@ -45,6 +45,7 @@ export default {
         value: val,
         id: this.todos.length + 1
       });
+      document.getElementById('adder').value = ""; // Reset field value
       this.resetProps()
     },
     hasTodo(val) {
