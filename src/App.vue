@@ -1,4 +1,5 @@
 <template>
+  <Error msg="Value is empty" v-if="emptyval"/>
   <h1 class="center">TodoList</h1>
   <ul>
     <li v-for="todo in todos" :key="todo.id" >{{ todo.id }}: {{ todo.value }}</li>
@@ -8,16 +9,31 @@
 </template>
 
 <script>
+import Error from "./components/Error"
 export default {
   name: "App",
+  components: {
+    Error
+  },
   data() {
     return {
-      todos: []
+      todos: [],
+      emptyval: false
     }
   },
   methods: {
     addTodo() {
-      console.log("Test")
+      const val = document.getElementById('adder').value
+      if(!val) {
+        console.log("Value empty!");
+        this.emptyval = true
+        setTimeout(() => {
+          this.emptyval = false
+        }, 5000)
+      }
+    },
+    hasTodo() {
+
     }
   }
 };
@@ -35,6 +51,7 @@ export default {
 input {
   border-style: double;
   border-color:  #288fef;
+  margin: 10px;
 }
 button {
     margin: 10px;
@@ -47,4 +64,19 @@ button {
     display: inline-block;
     font-size: 17px;
 }
+  div, body, html{
+    padding: 0;
+    display: block;
+    margin-top: 0px;
+    overflow: hidden;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+  }
+    .error{
+    align-self: center;
+    text-align: center;
+    background-color: #e45640;
+  }
 </style>
