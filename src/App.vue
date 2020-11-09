@@ -4,7 +4,7 @@
   <Success msg="Elément ajouté!" v-if="successshow"/>
   <h1 class="center">TodoList</h1>
   <ul>
-  <TodoItem  v-for="todo in todos" v-bind:todo="todo" v-bind:key="todo.id" > </TodoItem>
+  <TodoItem v-for="todo in todos" v-bind:todo="todo" v-bind:id="todo.id" v-bind:key="todo.id" > </TodoItem>
   </ul>
   <input id="adder">
   <button class="bigbutton" id="validate" @click="addTodo()">Valider</button>
@@ -47,11 +47,13 @@ export default {
         }, 3000)
         return;
       }
+      const todoid = this.todos.length + 1
       this.todos.push({
         value: val,
-        id: this.todos.length + 1
+        id: todoid
       });
       this.successshow = true
+
       setTimeout(() => {
         this.successshow = false
       }, 3000)
@@ -91,45 +93,44 @@ input {
   border-color:  #288fef;
   margin: 10px;
 }
-  .bigbutton {
-    margin: 10px;
-    background-color: #288fef;
-    border: none;
-    color: white;
-    padding: 13px 29px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 17px;
+.bigbutton {
+  margin: 10px;
+  background-color: #288fef;
+  border: none;
+  color: white;
+  padding: 13px 29px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 17px;
 }
 .tinybutton{
-    margin: 10px;
-    background-color: #288fef;
-    border: none;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 17px;
+  margin: 10px;
+  background-color: #288fef;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 17px;
 }
-  div, body, html{
-    padding: 0;
-    display: block;
-    margin-top: 0px;
-    overflow: hidden;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-
-  }
-    .error{
-    align-self: center;
-    text-align: center;
-    background-color: #e45640;
-  }
-  .succes{
-     align-self: center;
-    text-align: center;
-    background-color: #0ecc5d;
-  }
+div, body, html{
+  padding: 0;
+  display: block;
+  margin-top: 0px;
+  overflow: hidden;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.error{
+  align-self: center;
+  text-align: center;
+  background-color: #e45640;
+}
+.succes{
+  align-self: center;
+  text-align: center;
+  background-color: #0ecc5d;
+}
 </style>
