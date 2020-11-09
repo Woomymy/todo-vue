@@ -16,8 +16,11 @@ export default {
                 if(todo.id == id) {
                     return;
                 }
-                todo.id = newtodos.length + 1
-                newtodos.push(todo)
+                let tid = newtodos.length + 1
+                newtodos.push({
+                    value: todo.value,
+                    id: tid
+                })
             })
             this.$emit('todoup', newtodos)
         }
