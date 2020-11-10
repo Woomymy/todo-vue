@@ -22,7 +22,7 @@ export default {
   },
   data() {
     return {
-      todos: [],
+      todos: JSON.parse(localStorage.getItem('todos')) || [],
       emptyval: false,
       showalreadyex: false,
       successshow: false
@@ -57,6 +57,7 @@ export default {
       }, 3000)
       document.getElementById('adder').value = ""; // Reset field value
       this.resetProps()
+      this.updateStorage()
     },
     hasTodo(val) {
       let has;
@@ -74,6 +75,9 @@ export default {
     },
     syncTodos(n) {
       this.todos = n;
+    },
+    updateStorage() {
+      localStorage.setItem('todos', JSON.stringify(this.todos))
     }
   }
 };
