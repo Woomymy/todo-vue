@@ -75,6 +75,7 @@ export default {
     },
     syncTodos(n) {
       this.todos = n;
+      localStorage.setItem('todos', JSON.stringify(this.todos))
     },
     updateStorage() {
       localStorage.setItem('todos', JSON.stringify(this.todos))
