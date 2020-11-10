@@ -14,14 +14,16 @@ export default {
             let newtodos = []
             this.todos.forEach(todo => {
                 if(todo.id == id) {
-                    return;
-                }
+                    console.log(`Removing ${todo.value}`)
+                } else {
                 let tid = newtodos.length + 1
                 newtodos.push({
                     value: todo.value,
                     id: tid
-                })
+                    })
+                }
             })
+            console.log(newtodos)
             this.$emit('todoup', newtodos)
         }
     }
