@@ -23,7 +23,6 @@ export default {
                     })
                 }
             })
-            console.log(newtodos)
             this.$emit('todoup', newtodos)
         }
     }
