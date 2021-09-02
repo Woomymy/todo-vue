@@ -2,10 +2,10 @@
   <h1>Hello, world</h1>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { defineComponent } from "vue";
 
-export default defineComponent({
+defineComponent({
   name: "App",
   components: {},
 });
