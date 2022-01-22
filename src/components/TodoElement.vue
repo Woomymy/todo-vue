@@ -5,7 +5,8 @@
       Status: {{ todoStatusToString(todo.status) }}
     </p>
     <button @click="removeTodo(todo.id)">Delete</button>
-    <button @click="markAsDone(todo.id)">Mark as done</button>
+    <button v-if="todo.status !== 'DONE'" @click="markAsDone(todo.id)">Mark as done</button>
+    <button v-if="todo.status === 'DONE'" @click="markAsUnstarted(todo.id)">Mark as not done</button>
   </div>
 </template>
 <script lang="ts">
@@ -27,6 +28,9 @@ export default defineComponent({
     },
     markAsDone(id: number) {
       this.$emit("statusUpdate", id, TodoStatus.DONE);
+    },
+    markAsUnstarted(id: number) {
+      this.$emit("statusUpdate", id, TodoStatus.NOT_STARTED);
     },
     todoStatusToString,
   },
