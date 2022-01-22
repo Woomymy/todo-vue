@@ -1,6 +1,6 @@
 <template>
-  <h1 class="center">Todo</h1>
-  <input v-bind:id="TODO_CREATE_ID" @keypress.enter="addTodo()" />
+  <h1 class="text-center">Todo</h1>
+  <input class="border-blue-600 border" v-bind:id="TODO_CREATE_ID" @keypress.enter="addTodo()" />
   <TodoElement
     :todos="todos"
     v-for="todo in todos"
@@ -14,6 +14,7 @@
 
 <script setup lang="ts">
 import { defineComponent, ref } from "vue";
+import './index.css'
 import TodoElement from "./components/TodoElement.vue";
 import { TODO_CREATE_ID, TODO_STORAGE_KEY } from "./constants";
 import { TodoItem, TodoStatus } from "./types";
@@ -68,7 +69,6 @@ const updateStatus = (id: number, newStatus: TodoStatus) => {
 
 let todos = ref(getTodos());
 
-const i = "___";
 defineComponent({
   name: "App",
   components: {
