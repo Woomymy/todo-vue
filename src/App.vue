@@ -7,6 +7,7 @@
     :todo="todo"
     :key="todo.content"
     @todoDeletion="removeTodo"
+    @statusUpdate="updateStatus"
     >{{ todo.content }}</TodoElement
   >
 </template>
@@ -16,6 +17,7 @@ import { defineComponent, ref } from "vue";
 import TodoElement from "./components/TodoElement.vue";
 import { TODO_CREATE_ID, TODO_STORAGE_KEY } from "./constants";
 import { TodoItem, TodoStatus } from "./types";
+import { todoStatusToString } from "./util";
 
 const saveTodos = (newTodos: TodoItem[]): void => {
   todos.value = newTodos;
@@ -55,6 +57,15 @@ const removeTodo = (id: number) => {
   const newTodos = oldTodos.filter((todo) => todo.id != id);
   saveTodos(newTodos);
 };
+
+const updateStatus = (id: number, newStatus: TodoStatus) => {
+  console.log(`Changing status of todo ${id} to ${status}`);
+  const oldTodos = getTodos();
+  /// Find todo to change
+  const todoIndexToChange = oldTodos.findIndex((todo) => todo.id == id);
+  oldTodos[todoIndexToChange].status = newStatus;
+  saveTodos(oldTodos);
+}
 
 let todos = ref(getTodos());
 
