@@ -13,6 +13,7 @@
       Mark as not done
     </button>
   </div>
+  
 </template>
 <script lang="ts">
 import { TodoItem, TodoStatus } from "../types";
