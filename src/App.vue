@@ -42,6 +42,8 @@ const addTodo = () => {
   oldTodos.push({ content: inputElement.value });
   console.log(`Adding todo ${inputElement?.value}`);
   saveTodos(oldTodos);
+  // Reset input
+  inputElement.value = "";
 };
 
 let todos = ref(getTodos());
