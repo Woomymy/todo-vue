@@ -2,11 +2,16 @@
   <div class="todo" v-bind:content="todo.content" :status="todo.status">
     <p>
       {{ todo.id }}: {{ todo.content }}<br />
-      Status: {{ todoStatusToString(todo.status) }}
+      Status:
+      <span class="todo-status">{{ todoStatusToString(todo.status) }}</span>
     </p>
     <button @click="removeTodo(todo.id)">Delete</button>
-    <button v-if="todo.status !== 'DONE'" @click="markAsDone(todo.id)">Mark as done</button>
-    <button v-if="todo.status === 'DONE'" @click="markAsUnstarted(todo.id)">Mark as not done</button>
+    <button v-if="todo.status !== 'DONE'" @click="markAsDone(todo.id)">
+      Mark as done
+    </button>
+    <button v-if="todo.status === 'DONE'" @click="markAsUnstarted(todo.id)">
+      Mark as not done
+    </button>
   </div>
 </template>
 <script lang="ts">

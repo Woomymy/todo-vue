@@ -17,7 +17,6 @@ import { defineComponent, ref } from "vue";
 import TodoElement from "./components/TodoElement.vue";
 import { TODO_CREATE_ID, TODO_STORAGE_KEY } from "./constants";
 import { TodoItem, TodoStatus } from "./types";
-import { todoStatusToString } from "./util";
 
 const saveTodos = (newTodos: TodoItem[]): void => {
   todos.value = newTodos;
@@ -65,7 +64,7 @@ const updateStatus = (id: number, newStatus: TodoStatus) => {
   const todoIndexToChange = oldTodos.findIndex((todo) => todo.id == id);
   oldTodos[todoIndexToChange].status = newStatus;
   saveTodos(oldTodos);
-}
+};
 
 let todos = ref(getTodos());
 
@@ -78,12 +77,10 @@ defineComponent({
 </script>
 
 <style>
-* {
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: #333;
-  color: white;
+.todo[status="DONE"] .todo-status {
+  color: green;
 }
-.center {
-  text-align: center;
+.todo[status="NOT_STARTED"] .todo-status {
+  color: red;
 }
 </style>
