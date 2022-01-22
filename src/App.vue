@@ -15,7 +15,7 @@
 import { defineComponent, ref } from "vue";
 import TodoElement from "./components/TodoElement.vue";
 import { TODO_CREATE_ID, TODO_STORAGE_KEY } from "./constants";
-import { TodoItem } from "./typings";
+import { TodoItem, TodoStatus } from "./types";
 
 const saveTodos = (newTodos: TodoItem[]): void => {
   todos.value = newTodos;
@@ -38,7 +38,11 @@ const addTodo = (): void => {
   if (!inputElement || inputElement?.value === "") return;
   const oldTodos = getTodos();
   const todoID = oldTodos.length + 1;
-  oldTodos.push({ content: inputElement.value, id: todoID });
+  oldTodos.push({
+    content: inputElement.value,
+    id: todoID,
+    status: TodoStatus.NOT_STARTED,
+  });
   console.log(`Adding todo content: ${inputElement?.value} | id ${todoID}`);
   saveTodos(oldTodos);
   // Reset input
