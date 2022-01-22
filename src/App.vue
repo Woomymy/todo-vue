@@ -68,6 +68,7 @@ const updateStatus = (id: number, newStatus: TodoStatus) => {
 
 let todos = ref(getTodos());
 
+const i = "___";
 defineComponent({
   name: "App",
   components: {
