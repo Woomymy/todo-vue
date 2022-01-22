@@ -5,10 +5,11 @@
       Status: {{ todoStatusToString(todo.status) }}
     </p>
     <button @click="removeTodo(todo.id)">Delete</button>
+    <button @click="markAsDone(todo.id)">Mark as done</button>
   </div>
 </template>
 <script lang="ts">
-import { TodoItem } from "../types";
+import { TodoItem, TodoStatus } from "../types";
 import { defineComponent } from "vue";
 import { todoStatusToString } from "../util";
 
@@ -23,6 +24,9 @@ export default defineComponent({
   methods: {
     removeTodo(id: number) {
       this.$emit("todoDeletion", id);
+    },
+    markAsDone(id: number) {
+      this.$emit("statusUpdate", id, TodoStatus.DONE);
     },
     todoStatusToString,
   },

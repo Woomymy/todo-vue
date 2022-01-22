@@ -1,9 +1,8 @@
 /**
- * State of the todo (done, wip, not started, ...)
+ * State of the todo (done, not started, ...)
  */
 export enum TodoStatus {
   DONE = "DONE",
-  WIP = "WIP",
   NOT_STARTED = "NOT_STARTED",
 }
 
