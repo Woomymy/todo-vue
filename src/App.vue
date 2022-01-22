@@ -6,6 +6,7 @@
     v-for="todo in todos"
     :todo="todo"
     :key="todo.content"
+    @todoDeletion="removeTodo"
     >{{ todo.content }}</TodoElement
   >
 </template>
@@ -14,12 +15,9 @@
 import { defineComponent, ref } from "vue";
 import TodoElement from "./components/TodoElement.vue";
 import { TODO_CREATE_ID, TODO_STORAGE_KEY } from "./constants";
+import { TodoItem } from "./typings";
 
-interface TodoItem {
-  content: string;
-}
-
-const saveTodos = (newTodos: TodoItem[]) => {
+const saveTodos = (newTodos: TodoItem[]): void => {
   todos.value = newTodos;
   return window.localStorage.setItem(
     TODO_STORAGE_KEY,
@@ -33,17 +31,25 @@ const getTodos = (): TodoItem[] => {
   ) as TodoItem[];
 };
 
-const addTodo = () => {
+const addTodo = (): void => {
   const inputElement = document.getElementById(
     TODO_CREATE_ID
   ) as HTMLInputElement;
   if (!inputElement || inputElement?.value === "") return;
   const oldTodos = getTodos();
-  oldTodos.push({ content: inputElement.value });
-  console.log(`Adding todo ${inputElement?.value}`);
+  const todoID = oldTodos.length + 1;
+  oldTodos.push({ content: inputElement.value, id: todoID });
+  console.log(`Adding todo content: ${inputElement?.value} | id ${todoID}`);
   saveTodos(oldTodos);
   // Reset input
   inputElement.value = "";
+};
+
+const removeTodo = (id: number) => {
+  const oldTodos = getTodos();
+  console.log(`Deleting todo ${id}`);
+  const newTodos = oldTodos.filter((todo) => todo.id != id);
+  saveTodos(newTodos);
 };
 
 let todos = ref(getTodos());
