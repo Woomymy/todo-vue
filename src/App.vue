@@ -1,18 +1,30 @@
 <template>
   <h1 class="center">Todo</h1>
   <input v-bind:id="TODO_CREATE_ID" @keypress.enter="addTodo()" />
+  <TodoElement
+    :todos="todos"
+    v-for="todo in todos"
+    :todo="todo"
+    :key="todo.content"
+    >{{ todo.content }}</TodoElement
+  >
 </template>
 
 <script setup lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
+import TodoElement from "./components/TodoElement.vue";
 import { TODO_CREATE_ID, TODO_STORAGE_KEY } from "./constants";
 
 interface TodoItem {
   content: string;
 }
 
-const saveTodos = (todos: TodoItem[]) => {
-  return window.localStorage.setItem(TODO_STORAGE_KEY, JSON.stringify(todos));
+const saveTodos = (newTodos: TodoItem[]) => {
+  todos.value = newTodos;
+  return window.localStorage.setItem(
+    TODO_STORAGE_KEY,
+    JSON.stringify(newTodos)
+  );
 };
 
 const getTodos = (): TodoItem[] => {
@@ -26,14 +38,19 @@ const addTodo = () => {
     TODO_CREATE_ID
   ) as HTMLInputElement;
   if (!inputElement || inputElement?.value === "") return;
-  const todos = getTodos();
-  todos.push({ content: inputElement.value });
-  saveTodos(todos);
+  const oldTodos = getTodos();
+  oldTodos.push({ content: inputElement.value });
+  console.log(`Adding todo ${inputElement?.value}`);
+  saveTodos(oldTodos);
 };
+
+let todos = ref(getTodos());
 
 defineComponent({
   name: "App",
-  components: {},
+  components: {
+    TodoElement,
+  },
 });
 </script>
 
