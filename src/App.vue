@@ -59,7 +59,7 @@ const removeTodo = (id: number) => {
 };
 
 const updateStatus = (id: number, newStatus: TodoStatus) => {
-  console.log(`Changing status of todo ${id} to ${status}`);
+  console.log(`Changing status of todo ${id} to ${newStatus}`);
   const oldTodos = getTodos();
   /// Find todo to change
   const todoIndexToChange = oldTodos.findIndex((todo) => todo.id == id);
