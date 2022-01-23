@@ -1,6 +1,10 @@
 <template>
-  <h1 class="text-center text-4xl">Todo</h1>
-  <input class="border-blue-600 border bg-slate-900 rounded" v-bind:id="TODO_CREATE_ID" @keypress.enter="addTodo()" />
+  <h1 class="text-center text-4xl mb-4">Todo</h1>
+  <input 
+    class="border-indigo-500 border-2 font-mono bg-slate-900 rounded outline-none p-2 mb-3 w-11/12 focus:ring-2 focus:ring-indigo-400"
+    v-bind:id="TODO_CREATE_ID"
+    @keypress.enter="addTodo()"
+  />
   <TodoElement
     :todos="todos"
     v-for="todo in todos"
