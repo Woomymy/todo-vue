@@ -80,12 +80,3 @@ defineComponent({
   },
 });
 </script>
-
-<style>
-.todo[status="DONE"] .todo-status {
-  @apply text-green-400;
-}
-.todo[status="NOT_STARTED"] .todo-status {
-  @apply text-red-400;
-}
-</style>
