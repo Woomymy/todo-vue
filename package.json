@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vite --host",
     "serve-local": "vite",
-    "build": "vite build",
+    "build": "vite build && echo \"todo.woomy.ovh\" > dist/CNAME",
     "preview": "vite preview",
     "lint": "eslint --fix"
   },
