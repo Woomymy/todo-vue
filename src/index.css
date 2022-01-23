@@ -1,38 +1,13 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Start by importing tailwindcss stylesheets */
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
-html {
-  @apply bg-slate-900;
-  @apply text-white;
-  @apply space-x-2;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
+/* Import Base css styles (site background, ...) */
+@import "style/base.css";
 
-.button {
-  @apply rounded p-2 mr-2 outline-none;
-}
+/* Import custom button styles */
+@import "style/buttons.css";
 
-.purple-button {
-  @apply button;
-  @apply bg-purple-500 text-slate-900;
-  @apply focus:ring-2 focus:ring-purple-300;
-}
-.green-button {
-  @apply button;
-  @apply bg-green-500 text-slate-900;
-  @apply focus:ring-2 focus:ring-green-300;
-}
-
-.red-button {
-  @apply button;
-  @apply bg-red-500 text-slate-900;
-  @apply focus:ring-2 focus:ring-red-300;
-}
-
-.todo[status="DONE"] .todo-status {
-  @apply text-green-400;
-}
-.todo[status="NOT_STARTED"] .todo-status {
-  @apply text-red-400;
-}
+/* Import style for TodoElements */
+@import "style/todoelements.css";
