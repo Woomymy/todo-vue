@@ -12,6 +12,7 @@
     :key="todo.content"
     @todoDeletion="removeTodo"
     @statusUpdate="updateStatus"
+    @todoEdition="editTodo"
     >{{ todo.content }}</TodoElement
   >
 </template>
@@ -78,6 +79,16 @@ const updateStatus = (id: number, newStatus: TodoStatus) => {
   oldTodos[todoIndexToChange].status = newStatus;
   saveTodos(oldTodos);
 };
+
+/** Change todo content */
+const editTodo = (id: number, newContent: string) => {
+  console.log(`Changing content of ${id} with ${newContent}`);
+  const oldTodos = getTodos();
+  const todoIndex = oldTodos.findIndex(td => td.id == id);
+  if(!todoIndex && todoIndex != 0) return;
+  oldTodos[todoIndex].content = newContent;
+  saveTodos(oldTodos);
+}
 
 let todos = ref(getTodos());
 
