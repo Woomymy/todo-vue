@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.button {
+  @apply rounded p-2 mr-2 outline-none;
+}
+
+.purple-button {
+  @apply button;
+  @apply bg-purple-500 text-slate-900;
+  @apply focus:ring-2 focus:ring-purple-300;
+}
+.green-button {
+  @apply button;
+  @apply bg-green-500 text-slate-900;
+  @apply focus:ring-2 focus:ring-green-300;
+}
+
+.red-button {
+  @apply button;
+  @apply bg-red-500 text-slate-900;
+  @apply focus:ring-2 focus:ring-red-300;
+}

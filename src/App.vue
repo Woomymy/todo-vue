@@ -1,142 +1,90 @@
 <template>
-  <Error msg="L'entrée est vide!" v-if="emptyval"/>
-  <Error msg="Cet élément existe déjà!" v-if="showalreadyex"/>
-  <Success msg="Elément ajouté!" v-if="successshow"/>
-  <h1 class="center">TodoList</h1>
-  <ul>
-  <TodoItem @todoup="syncTodos" v-bind:todos="todos" v-for="todo in todos" v-bind:todo="todo" v-bind:id="todo.id" v-bind:key="todo.id" > </TodoItem>
-  </ul>
-  <input id="adder" @keyup.enter="addTodo()">
-  <button class="bigbutton" id="validate" @click="addTodo()">Valider</button>
+  <h1 class="text-center text-4xl mb-4">Todo list</h1>
+  <input 
+    class="border-indigo-500 border-2 font-mono bg-slate-900 rounded outline-none p-2 mb-3 w-11/12 focus:ring-2 focus:ring-indigo-400"
+    v-bind:id="TODO_CREATE_ID"
+    @keypress.enter="addTodo()"
+  />
+  <TodoElement
+    :todos="todos"
+    v-for="todo in todos"
+    :todo="todo"
+    :key="todo.content"
+    @todoDeletion="removeTodo"
+    @statusUpdate="updateStatus"
+    >{{ todo.content }}</TodoElement
+  >
 </template>
-<script>
-import Error from "./components/Error"
-import Success from "./components/Succes"
-import TodoItem from "./components/TodoItem"
-export default {
-  name: "App",
-  components: {
-    Error,
-    Success,
-    TodoItem
-  },
-  data() {
-    return {
-      todos: JSON.parse(localStorage.getItem('todos')) || [],
-      emptyval: false,
-      showalreadyex: false,
-      successshow: false
-    }
-  },
-  methods: {
-    addTodo() {
-      const val = document.getElementById('adder').value
-      if(!val) {
-        this.emptyval = true
-        setTimeout(() => {
-          this.emptyval = false
-        }, 3000)
-        return;
-      }
-      if(this.hasTodo(val)) {
-        this.showalreadyex = true;
-        setTimeout(() => {
-          this.showalreadyex = false;
-        }, 3000)
-        return;
-      }
-      const todoid = this.todos.length + 1
-      this.todos.push({
-        value: val,
-        id: todoid
-      });
-      this.successshow = true
 
-      setTimeout(() => {
-        this.successshow = false
-      }, 3000)
-      document.getElementById('adder').value = ""; // Reset field value
-      this.resetProps()
-      this.updateStorage()
-    },
-    hasTodo(val) {
-      let has;
-      this.todos.forEach(todo => {
-        if(todo.value === val) {
-          has = true;
-          return;
-        }
-      });
-      return has;
-    },
-    resetProps() {
-      this.showalreadyex = false
-      this.emptyval = false
-    },
-    syncTodos(n) {
-      this.todos = n;
-      localStorage.setItem('todos', JSON.stringify(this.todos))
-    },
-    updateStorage() {
-      localStorage.setItem('todos', JSON.stringify(this.todos))
-    }
-  }
+<script setup lang="ts">
+import { defineComponent, ref } from "vue";
+import './index.css'
+import TodoElement from "./components/TodoElement.vue";
+import { TODO_CREATE_ID, TODO_STORAGE_KEY } from "./constants";
+import { TodoItem, TodoStatus } from "./types";
+
+/** Save all todos to local storage and render them */
+const saveTodos = (newTodos: TodoItem[]): void => {
+  todos.value = newTodos;
+  return window.localStorage.setItem(
+    TODO_STORAGE_KEY,
+    JSON.stringify(newTodos)
+  );
 };
 
+/** Get all todos from localStorage */
+const getTodos = (): TodoItem[] => {
+  return JSON.parse(
+    window.localStorage.getItem(TODO_STORAGE_KEY) || "[]"
+  ) as TodoItem[];
+};
+
+/** Add new todo from HTML input */
+const addTodo = (): void => {
+  const inputElement = document.getElementById(
+    TODO_CREATE_ID
+  ) as HTMLInputElement;
+  /** Don't add empty todos */
+  if (!inputElement || inputElement?.value === "") return;
+  const oldTodos = getTodos();
+  /** Unique ID for the todo */
+  const todoID = (oldTodos[oldTodos.length - 1]?.id || 0) + 1;
+  oldTodos.push({
+    content: inputElement.value,
+    id: todoID,
+    status: TodoStatus.NOT_STARTED,
+  });
+  console.log(`Adding todo content: ${inputElement?.value} | id ${todoID}`);
+  // Write all to local storage and render
+  saveTodos(oldTodos);
+  // Reset input
+  inputElement.value = "";
+};
+
+/** Remove todo element $id */
+const removeTodo = (id: number) => {
+  const oldTodos = getTodos();
+  console.log(`Deleting todo ${id}`);
+  const newTodos = oldTodos.filter((todo) => todo.id != id);
+  saveTodos(newTodos);
+};
+
+/** Change "status" of Todo */
+const updateStatus = (id: number, newStatus: TodoStatus) => {
+  console.log(`Changing status of todo ${id} to ${newStatus}`);
+  const oldTodos = getTodos();
+  // Find todo to change
+  const todoIndexToChange = oldTodos.findIndex((todo) => todo.id == id);
+  oldTodos[todoIndexToChange].status = newStatus;
+  saveTodos(oldTodos);
+};
+
+let todos = ref(getTodos());
+
+defineComponent({
+  name: "App",
+  components: {
+    TodoElement,
+  },
+});
 </script>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-* {
-  font-family: 'Roboto', sans-serif;
-}
-.center{
-  align-self: center;
-  text-align: center;
-  align-items: center;
-}
-input {
-  border-style: double;
-  border-color:  #288fef;
-  margin: 10px;
-}
-.bigbutton {
-  margin: 10px;
-  background-color: #288fef;
-  border: none;
-  color: white;
-  padding: 13px 29px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 17px;
-}
-.tinybutton{
-  margin: 10px;
-  background-color: #288fef;
-  border: none;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 17px;
-}
-div, body, html{
-  padding: 0;
-  display: block;
-  margin-top: 0px;
-  overflow: hidden;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-.error{
-  align-self: center;
-  text-align: center;
-  background-color: #e45640;
-}
-.succes{
-  align-self: center;
-  text-align: center;
-  background-color: #0ecc5d;
-}
-</style>
