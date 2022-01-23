@@ -1,11 +1,13 @@
 <template>
   <div class="todo mb-2" v-bind:content="todo.content" :status="todo.status">
-    <p v-if="!editing" @click="editing = true">
+    <p v-if="!editing">
       {{ todo.id }}: {{ todo.content }}<br />
       Status:
       <span class="todo-status">{{ todoStatusToString(todo.status) }}</span>
     </p>
     <input :id="`edit-${todo.id}`" class="text-black" placeholder="Todo" v-if="editing" :value="todo.content" @keypress.enter="editTodo(todo.id)" />
+    <button v-if="editing === false" class="blue-button" type="button" @click="editing = true">Edit</button>
+    <button v-if="editing === true" class="red-button" type="button" @click="editing = false">Cancel</button>
     <button class="purple-button" type="button" @click="removeTodo(todo.id)">Delete</button>
    
     <button class="green-button" v-if="todo.status !== 'DONE'" @click="markAsDone(todo.id)">
