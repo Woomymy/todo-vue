@@ -2,7 +2,8 @@
   <h1 class="text-center text-4xl mb-4">Todo list</h1>
   <input 
     class="border-indigo-500 border-2 font-mono bg-slate-900 rounded outline-none p-2 mb-3 w-11/12 focus:ring-2 focus:ring-indigo-400"
-    v-bind:id="TODO_CREATE_ID"
+    :id="TODO_CREATE_ID"
+    placeholder="Press enter to add element to list..."
     @keypress.enter="addTodo()"
   />
   <TodoElement
@@ -46,7 +47,7 @@ const addTodo = (): void => {
     TODO_CREATE_ID
   ) as HTMLInputElement;
   /** Don't add empty todos */
-  if (!inputElement || inputElement?.value === "") return;
+  if (!inputElement || inputElement?.value.trim() === "") return;
   const oldTodos = getTodos();
   /** Unique ID for the todo */
   const todoID = (oldTodos[oldTodos.length - 1]?.id || 0) + 1;
