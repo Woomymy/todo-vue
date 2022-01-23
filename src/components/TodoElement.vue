@@ -5,9 +5,10 @@
       Status:
       <span class="todo-status">{{ todoStatusToString(todo.status) }}</span>
     </p>
-    <input :id="`edit-${todo.id}`" class="text-black bg-gray-200 rounded p-2 mb-2 outline-none focus:ring-2 focus:ring-white" placeholder="Todo" v-if="editing" :value="todo.content" @keypress.enter="editTodo(todo.id)" />
+    <input :id="`edit-${todo.id}`" class=" w-2/4 text-black bg-gray-200 rounded p-2 mb-2 outline-none focus:ring-2 focus:ring-white" placeholder="Todo" v-if="editing" :value="todo.content" @keypress.enter="editTodo(todo.id)" />
     <br v-if="editing === true"/>
     <button v-if="editing === false" class="blue-button" type="button" @click="editing = true">Edit</button>
+    <button v-if="editing === true" class="blue-button" type="button" @click="editTodo(todo.id)">OK</button>
     <button v-if="editing === true" class="red-button" type="button" @click="editing = false">Cancel</button>
     <button class="purple-button" type="button" @click="removeTodo(todo.id)">Delete</button>
    
