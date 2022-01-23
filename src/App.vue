@@ -43,8 +43,7 @@ const addTodo = (): void => {
   ) as HTMLInputElement;
   if (!inputElement || inputElement?.value === "") return;
   const oldTodos = getTodos();
-  let todoID = oldTodos.length + 1;
-  while ( oldTodos.find(td => td.id == todoID) ) { todoID += 1; };
+  const todoID = (oldTodos[oldTodos.length - 1]?.id || 0) + 1;
   oldTodos.push({
     content: inputElement.value,
     id: todoID,
