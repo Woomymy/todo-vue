@@ -24,17 +24,21 @@ export default defineComponent({
   name: "TodoElement",
   props: {
     todo: {
+      // Use Object as () => T to correct TypeScript types
       type: Object as () => TodoItem,
       required: true,
     },
   },
   methods: {
+    /** Ask removeTodo() in parent to remove todo $id */
     removeTodo(id: number) {
       this.$emit("todoDeletion", id);
     },
+    /** Ask updateStatus() in parent to mark Todo as done */
     markAsDone(id: number) {
       this.$emit("statusUpdate", id, TodoStatus.DONE);
     },
+    /** Ask updateStatus() in parent to mark Todo as not started */
     markAsUnstarted(id: number) {
       this.$emit("statusUpdate", id, TodoStatus.NOT_STARTED);
     },
