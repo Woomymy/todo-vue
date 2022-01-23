@@ -1,0 +1,13 @@
+/* Start by importing tailwindcss stylesheets */
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* Import Base css styles (site background, ...) */
+@import "style/base.css";
+
+/* Import custom button styles */
+@import "style/buttons.css";
+
+/* Import style for TodoElements */
+@import "style/todoelements.css";

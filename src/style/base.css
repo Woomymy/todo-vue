@@ -1,0 +1,4 @@
+html {
+  @apply bg-slate-900 text-white space-x-2;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
