@@ -52,7 +52,7 @@ export default defineComponent({
     /** Change todo content */
     editTodo(id: number) {
       const newInput = document.querySelector(`#edit-${id}`) as HTMLInputElement;
-      if (newInput.value == "") return;
+      if (newInput.value.trim() == "") return;
       this.$emit("todoEdition", id, newInput.value);
       this.editing = false;
     },
