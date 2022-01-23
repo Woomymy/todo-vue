@@ -1,6 +1,6 @@
 <template>
-  <h1 class="text-center">Todo</h1>
-  <input class="border-blue-600 border" v-bind:id="TODO_CREATE_ID" @keypress.enter="addTodo()" />
+  <h1 class="text-center text-4xl">Todo</h1>
+  <input class="border-blue-600 border bg-slate-900 rounded" v-bind:id="TODO_CREATE_ID" @keypress.enter="addTodo()" />
   <TodoElement
     :todos="todos"
     v-for="todo in todos"
@@ -79,9 +79,9 @@ defineComponent({
 
 <style>
 .todo[status="DONE"] .todo-status {
-  color: green;
+  @apply text-green-400;
 }
 .todo[status="NOT_STARTED"] .todo-status {
-  color: red;
+  @apply text-red-400;
 }
 </style>
